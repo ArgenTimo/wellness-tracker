@@ -9,7 +9,6 @@ Run explicitly with:
 pytest -m integration
 """
 
-import os
 import pytest
 
 from app.core.config import settings
