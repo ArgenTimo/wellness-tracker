@@ -7,7 +7,7 @@ from uuid import UUID
 from jose import JWTError, jwt
 from passlib.context import CryptContext
 
-from app.core.config import get_settings
+from app.core.config import get_settings, settings
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -27,9 +27,8 @@ def create_access_token(
     extra_claims: dict[str, Any] | None = None,
 ) -> str:
     """Create JWT access token."""
-    settings = get_settings()
     expire = datetime.now(UTC) + timedelta(
-        minutes=settings.jwt_access_token_expire_minutes
+        minutes=settings.JWT_ACCESS_TOKEN_EXPIRE_MINUTES
     )
     to_encode = {
         "sub": str(subject),
@@ -40,15 +39,14 @@ def create_access_token(
     }
     return jwt.encode(
         to_encode,
-        settings.secret_key,
-        algorithm=settings.jwt_algorithm,
+        settings.SECRET_KEY,
+        algorithm=settings.JWT_ALGORITHM,
     )
 
 
 def create_refresh_token(subject: str | UUID) -> str:
     """Create JWT refresh token."""
-    settings = get_settings()
-    expire = datetime.now(UTC) + timedelta(days=settings.jwt_refresh_token_expire_days)
+    expire = datetime.now(UTC) + timedelta(days=settings.JWT_REFRESH_TOKEN_EXPIRE_DAYS)
     to_encode = {
         "sub": str(subject),
         "exp": expire,
@@ -57,19 +55,18 @@ def create_refresh_token(subject: str | UUID) -> str:
     }
     return jwt.encode(
         to_encode,
-        settings.secret_key,
-        algorithm=settings.jwt_algorithm,
+        settings.SECRET_KEY,
+        algorithm=settings.JWT_ALGORITHM,
     )
 
 
 def decode_token(token: str) -> dict[str, Any] | None:
     """Decode and validate JWT token. Returns None if invalid."""
     try:
-        settings = get_settings()
         payload = jwt.decode(
             token,
-            settings.secret_key,
-            algorithms=[settings.jwt_algorithm],
+            settings.SECRET_KEY,
+            algorithms=[settings.JWT_ALGORITHM],
         )
         return payload
     except JWTError:

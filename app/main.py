@@ -7,10 +7,9 @@ from fastapi.exceptions import RequestValidationError
 
 from app.api.exceptions import generic_exception_handler, validation_exception_handler
 from app.api.routes import auth, client, health, links, specialist
-from app.core.config import get_settings
+from app.core.config import get_settings, settings
 from app.core.logging import log_request, setup_logging
 
-settings = get_settings()
 setup_logging()
 
 app = FastAPI(
@@ -48,12 +47,12 @@ async def logging_middleware(request: Request, call_next):
 app.include_router(health.router)
 
 # API v1 routes
-app.include_router(auth.router, prefix=settings.api_v1_prefix)
-app.include_router(links.router, prefix=settings.api_v1_prefix)
-app.include_router(client.router, prefix=settings.api_v1_prefix)
-app.include_router(client.summary_router, prefix=settings.api_v1_prefix)
-app.include_router(client.tasks_router, prefix=settings.api_v1_prefix)
-app.include_router(specialist.router, prefix=settings.api_v1_prefix)
+app.include_router(auth.router, prefix=settings.API_V1_PREFIX)
+app.include_router(links.router, prefix=settings.API_V1_PREFIX)
+app.include_router(client.router, prefix=settings.API_V1_PREFIX)
+app.include_router(client.summary_router, prefix=settings.API_V1_PREFIX)
+app.include_router(client.tasks_router, prefix=settings.API_V1_PREFIX)
+app.include_router(specialist.router, prefix=settings.API_V1_PREFIX)
 
 
 @app.get("/")

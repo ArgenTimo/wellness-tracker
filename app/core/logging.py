@@ -4,13 +4,12 @@ import logging
 import sys
 from typing import Any
 
-from app.core.config import get_settings
+from app.core.config import get_settings, settings
 
 
 def setup_logging() -> None:
     """Configure application logging."""
-    settings = get_settings()
-    level = getattr(logging, settings.log_level.upper(), logging.INFO)
+    level = getattr(logging, settings.LOG_LEVEL.upper(), logging.INFO)
 
     fmt = "%(asctime)s | %(levelname)-8s | %(name)s:%(funcName)s:%(lineno)d - %(message)s"
     datefmt = "%Y-%m-%d %H:%M:%S"

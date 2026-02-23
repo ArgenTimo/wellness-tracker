@@ -6,14 +6,13 @@ from typing import Annotated
 from fastapi import Depends
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
-from app.core.config import get_settings
+from app.core.config import get_settings, settings
 from app.db.base import Base
 from app.domain import models  # noqa: F401 - ensure all models are registered
 
-settings = get_settings()
 engine = create_async_engine(
-    settings.database_url,
-    echo=settings.database_echo,
+    settings.DATABASE_URL,
+    echo=settings.DATABASE_ECHO,
     future=True,
 )
 AsyncSessionLocal = async_sessionmaker(
