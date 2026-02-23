@@ -1,0 +1,116 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.env
+.venv/
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# =========================
+# FastAPI / Uvicorn
+# =========================
+*.log
+logs/
+uvicorn.log
+
+# =========================
+# Environment variables
+# =========================
+.env
+.env.local
+.env.*.local
+secrets.json
+
+# =========================
+# Database
+# =========================
+*.sqlite3
+*.db
+*.db-journal
+
+# Alembic
+alembic/versions/__pycache__/
+
+# =========================
+# Pytest / Coverage
+# =========================
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# =========================
+# Mypy / Ruff / Linters
+# =========================
+.mypy_cache/
+.ruff_cache/
+.dmypy.json
+.pyre/
+
+# =========================
+# IDE
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Docker
+# =========================
+docker-compose.override.yml
+*.pid
+
+# =========================
+# Static / Media (если появятся)
+# =========================
+staticfiles/
+media/
+
+# =========================
+# Temporary files
+# =========================
+tmp/
+temp/
+
+# RAG generated artifacts (indexes, embeddings, caches)
+app/llm/rag/artifacts/
+app/llm/rag/**/index*
+app/llm/rag/**/*.faiss
+app/llm/rag/**/*.parquet
+app/llm/rag/**/*.sqlite3
