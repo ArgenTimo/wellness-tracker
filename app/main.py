@@ -62,5 +62,5 @@ async def root():
         "service": "Wellness Tracker API",
         "docs": "/docs",
         "health": "/health",
-        "api": settings.api_v1_prefix,
+        "api": settings.API_V1_PREFIX,
     }

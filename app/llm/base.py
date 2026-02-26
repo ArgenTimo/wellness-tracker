@@ -36,6 +36,12 @@ class ChatMessage(BaseModel):
     # Optional metadata if you need it later (timestamps, ids, etc.)
     name: Optional[str] = None
 
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "role": self.role,
+            "content": self.content,
+        }
+
 
 class LLMRequest(BaseModel):
     """

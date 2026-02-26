@@ -21,7 +21,7 @@ class _CaptureResponsesCreate:
 
 
 @pytest.mark.asyncio
-async def test_security_gate_passes_tools_and_json_schema(monkeypatch):
+async def test_security_gate_passes_tools_and_json_schema():
     svc = SecurityGateService()
 
     # Force vector store ids for test (avoid dependency on .env)
@@ -57,10 +57,12 @@ async def test_security_gate_passes_tools_and_json_schema(monkeypatch):
     assert tools[0]["type"] == "file_search"
     assert tools[0]["vector_store_ids"] == ["vs_test_1"]
 
-    # Ensure strict JSON schema output is requested
-    rf = capture.kwargs["response_format"]
-    assert rf["type"] == "json_schema"
-    assert rf["json_schema"]["strict"] is True
+    # ✅ Responses API: strict JSON schema is passed via text.format
+    tf = capture.kwargs["text"]["format"]
+    assert tf["type"] == "json_schema"
+    assert tf["strict"] is True
+    assert tf["name"] == "security_gate_output"
+    assert "schema" in tf
 
 
 @pytest.mark.asyncio
