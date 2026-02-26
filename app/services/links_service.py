@@ -4,7 +4,7 @@ import hashlib
 import secrets
 from datetime import datetime, timezone
 
-from app.core.config import get_settings
+from app.core.config import get_settings, settings
 from app.db.session import DbSession
 from app.domain.enums import InviteType
 from app.domain.models import UserAccessLink
@@ -27,7 +27,7 @@ class LinksService:
 
     def _build_url(self, token: str) -> str:
         """Build full redeem URL."""
-        base = get_settings().invite_base_url.rstrip("/")
+        base = settings.INVITE_BASE_URL.rstrip("/")
         return f"{base}?token={token}"
 
     async def create_client_invite(
